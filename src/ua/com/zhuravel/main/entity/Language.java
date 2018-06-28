@@ -29,5 +29,5 @@ public abstract class Language {
     /**
      * Implementation of the custom language
      */
-    public abstract void languageImpl();
+    public abstract String languageImpl();
 }

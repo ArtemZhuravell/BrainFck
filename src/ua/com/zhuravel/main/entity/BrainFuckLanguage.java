@@ -8,7 +8,7 @@ import java.util.LinkedList;
  */
 public final class BrainFuckLanguage extends Language {
 
-    private char[] array = { 0, 0, 0, 0, 0, 0, 0};
+    private char[] array = { 0, 0, 0, 0, 0, 0, 0, 0};
 
     /**
      * A pointer
@@ -39,8 +39,8 @@ public final class BrainFuckLanguage extends Language {
      * {@code BrainFuck} compiler realisation
      */
     @Override
-    public final void languageImpl() {
-
+    public final String languageImpl() {
+    		String result = "";
         //  We're iterating trough the commands and executing them
         for(int i = 0; i < code.length(); i++) {
             switch (code.charAt(i)) {
@@ -57,7 +57,7 @@ public final class BrainFuckLanguage extends Language {
                     minus();
                     break;
                 case '.':
-                    point();
+                    result += String.valueOf(point());
                     break;
                 case '[':
                     //  while we're starting a loop we should be convinced
@@ -88,9 +88,10 @@ public final class BrainFuckLanguage extends Language {
                     i = indexesOfOpenBracket.getLast();
                     break;
                 default:
-                    return;
+                    return "";
             }
         }
+        return result;
     }
 
     /* Command of the BrainFuck language */
@@ -103,7 +104,10 @@ public final class BrainFuckLanguage extends Language {
 
     private final void minus() { array[count]--; }
 
-    private final void point() { System.out.print(array[count]); }
+    private final char point() {
+    		System.out.print(array[count]);
+    		return array[count];
+    	}
 
     private final void openBracket(int i) { indexesOfOpenBracket.addLast(i); }
 
