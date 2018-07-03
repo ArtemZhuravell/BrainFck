@@ -6,9 +6,14 @@ import java.util.LinkedList;
 /**
  * {@code BrainFuck} language implementation
  */
-public final class BrainFuckLanguage extends Language {
+public final class BrainFuckLanguage implements Language {
 
-    private char[] array = { 0, 0, 0, 0, 0, 0, 0, 0};
+    private char[] array = { 0, 0, 0, 0, 0, 0, 0};
+
+    /**
+     * A code which has to be compiled
+     */
+    private String code = new String("");
 
     /**
      * A pointer
@@ -21,26 +26,18 @@ public final class BrainFuckLanguage extends Language {
     private Deque<Integer> indexesOfOpenBracket = new LinkedList<>();
 
     /**
-     * It is not allowed to create an empty instance of the class
+     * Default constructor
      */
-    private BrainFuckLanguage(){}
+    public BrainFuckLanguage(){}
 
     /**
-     * Constructor for field initialization
-     *
-     * @param code  the code of the language
-     *              which has to be compiled
-     */
-    public BrainFuckLanguage(String code){
-        super(code);
-    }
-
-    /**
-     * {@code BrainFuck} compiler realisation
+     * {@code BrainFuck} compiler realization
      */
     @Override
-    public final String languageImpl() {
+    public final char[] compile() {
     		String result = "";
+    		char[] res = null;
+    		int countOfCharacters = 0;
         //  We're iterating trough the commands and executing them
         for(int i = 0; i < code.length(); i++) {
             switch (code.charAt(i)) {
@@ -58,6 +55,7 @@ public final class BrainFuckLanguage extends Language {
                     break;
                 case '.':
                     result += String.valueOf(point());
+                    countOfCharacters++;
                     break;
                 case '[':
                     //  while we're starting a loop we should be convinced
@@ -88,10 +86,38 @@ public final class BrainFuckLanguage extends Language {
                     i = indexesOfOpenBracket.getLast();
                     break;
                 default:
-                    return "";
+                    return new char[0];
             }
         }
-        return result;
+        //a copy loop for test
+        res = new char[countOfCharacters];
+        for(int i = 0; i < result.length(); i++) {
+        		res[i] = result.charAt(i);
+        }
+        return res;
+    }
+
+    /**
+     * Getter
+     *
+     * @return  an array which represents a memory domain
+     */
+    public char[] getArray() {
+        char[] getArray = new char[array.length];
+        for(int i = 0; i < getArray.length; i++) {
+            getArray[i] = array[i];
+        }
+        return getArray;
+    }
+
+    /**
+     * Setter
+     *
+     * @param code  a new code
+     */
+    @Override
+    public void setCode(String code) {
+        this.code = code;
     }
 
     /* Command of the BrainFuck language */

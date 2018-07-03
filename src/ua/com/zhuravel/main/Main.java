@@ -14,8 +14,10 @@ public final class Main {
      * @param args  unused
      */
     public static void main(String[] args) {
+    		Language lang = null;
         final String code = "++++++++[>++++[>++>+++>+++>+<<<<-]>+>+>->>+[<]<-]>>.>---.+++++++..+++.>>.<-.<.+++.------.--------.>>+.>++.";
-        final Language lang = new BrainFuckLanguage(code);
-        lang.languageImpl();
+        lang = new BrainFuckLanguage();
+        lang.setCode(code);
+        lang.compile();
     }
 }

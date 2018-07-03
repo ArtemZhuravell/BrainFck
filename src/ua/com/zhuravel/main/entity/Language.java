@@ -4,30 +4,17 @@ package ua.com.zhuravel.main.entity;
  * We consider that there are some custom languages.
  * This interface describes standard behaviour
  */
-public abstract class Language {
-
-    /**
-     * A code of the language
-     */
-    protected String code = "";
-
-    /**
-     * Default constructor
-     */
-    public Language(){}
-
-    /**
-     * Constructor for field initialization
-     *
-     * @param code  the code of the language
-     *              which has to be compiled
-     */
-    public Language(String code) {
-        this.code = code;
-    }
+public interface Language {
 
     /**
      * Implementation of the custom language
      */
-    public abstract String languageImpl();
+    char[] compile();
+
+    /**
+     * A code of a language
+     *
+     * @param code  new code
+     */
+    void setCode(String code);
 }
